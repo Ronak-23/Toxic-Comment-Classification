@@ -70,12 +70,12 @@ def main(request):
     comment = request.POST['comment']
     # comment_pre = preprocess(comment)
     transformer = TfidfTransformer()
-    fp1 = str(os.path.join(BASE_DIR, 'model\\feature.pkl'))
+    fp1 = str(os.path.join(BASE_DIR, 'model/feature.pkl'))
     loaded_vec = CountVectorizer(decode_error="replace",vocabulary=pickle.load(open(fp1, "rb")))
     comment_pre = transformer.fit_transform(loaded_vec.fit_transform(np.array([comment])))
     # comment_pre = convert_text_to_arr(comment_pre)
     context["comment"] = comment_pre
-    fp2 = str(os.path.join(BASE_DIR, 'model\\logreg_model_tfid_vectorizer.sav'))
+    fp2 = str(os.path.join(BASE_DIR, 'model/logreg_model_tfid_vectorizer.sav'))
     model=pickle.load(open(fp2, 'rb'))
     # model = lightgbm.Booster(model_file='D:\Projects\Toxic Comment Classification\\toxicCommentClassifier\model\lgbr_base.txt')
     # Model = model()

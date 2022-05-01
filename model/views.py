@@ -18,9 +18,28 @@ def main(request):
 #   y_train = pd.read_csv("D:\\Imp files\\material\\ML labs\\New folder/y_train.csv")
 #   print(model)
 #   model.fit(X_train, y_train,verbose=20)
+  def preprocess(text_string):
+    stemmer = SnowballStemmer("english")
+    try:
+        stop_words = set(stopwords.words('english'))
+    except:
+        nltk.download('stopwords')
+        stop_words = set(stopwords.words('english'))
+    text_string = text_string.lower() # Convert everything to lower case.
+    text_string = re.sub('[^A-Za-z0-9]+', ' ', text_string) # Remove special characters and punctuations
+
+    x = text_string.split()
+    new_text = []
+
+    for word in x:
+        if word not in stop_words:
+            new_text.append(stemmer.stem(word))
+
+    text_string = ' '.join(new_text)
+    return text_string
   if(request.method == "POST"):
     comment = request.POST['comment']
-    # comment_pre = preprocess(comment)
+    comment = preprocess(comment)
     transformer = TfidfTransformer()
     fp1 = str(os.path.join(BASE_DIR, 'model/feature.pkl'))
     loaded_vec = CountVectorizer(decode_error="replace",vocabulary=pickle.load(open(fp1, "rb")))

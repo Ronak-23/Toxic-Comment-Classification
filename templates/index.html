@@ -142,6 +142,8 @@ h1{
     {#<p>{{comment}}</p>#}
     {% if result == "Toxic"  %}
     <p style="color:Yellow">It is a {{result}} comment</p>
+    <p>{#Types of toxicity detected: {{result1}} {{result2}} {{result3}} {{result4}} {{result5}} {{result6}} #}</p>
+    <p>Types of toxicity detected: {{types}}</p>
     {% elif result == "Non Toxic" %}
     <p style="color:  rgb(107, 209, 107)">It is a {{result}} comment</p>
     {% endif %}
